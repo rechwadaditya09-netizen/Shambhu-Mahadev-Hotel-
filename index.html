@@ -1,61 +1,348 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shambhu Mahadev Hotel - Orders</title>
-    <style>
-        /* बटणे छान दिसण्यासाठी साधी डिझाईन */
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f7f7f7; }
-        .menu-btn { display: block; width: 80%; max-width: 300px; margin: 15px auto; padding: 15px; font-size: 18px; font-weight: bold; color: white; background-color: #ff5722; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .menu-btn:active { background-color: #e64a19; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Shambhu Mahadev Hotel | Kingaon</title>
+
+<meta name="description" content="Shambhu Mahadev Hotel, Kingaon येथे स्वादिष्ट नाश्ता, मिसळ पाव, पावभाजी आणि इतर पदार्थ मिळतात.">
+
+<meta name="keywords" content="Shambhu Mahadev Hotel, Hotel Kingaon, Misal Pav, Pav Bhaji, Hotel Latur">
+
+<meta name="theme-color" content="#8b0000">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #fffaf0;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background: #8b0000;
+    color: white;
+    text-align: center;
+    padding: 25px 10px;
+}
+
+header h1 {
+    font-size: 30px;
+}
+
+header p {
+    font-size: 16px;
+}
+
+nav {
+    background: #222;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 13px 15px;
+    font-size: 15px;
+}
+
+nav a:hover {
+    background: #8b0000;
+}
+
+section {
+    padding: 40px 18px;
+    text-align: center;
+}
+
+h2 {
+    color: #8b0000;
+    margin-bottom: 20px;
+    font-size: 27px;
+}
+
+.hero {
+    background: linear-gradient(135deg, #ffe0a3, #fff5dd);
+    padding: 65px 20px;
+}
+
+.hero h2 {
+    font-size: 32px;
+}
+
+.button {
+    display: inline-block;
+    background: #8b0000;
+    color: white;
+    padding: 12px 22px;
+    margin: 12px 5px;
+    border-radius: 7px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button:hover {
+    background: #b22222;
+}
+
+.menu-container,
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+    gap: 15px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.menu-item {
+    background: white;
+    padding: 20px 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #ddd;
+    border-bottom: 3px solid #8b0000;
+}
+
+.menu-item h3 {
+    color: #333;
+    font-size: 18px;
+}
+
+.price {
+    color: #08752c;
+    font-weight: bold;
+    font-size: 21px;
+    margin-top: 8px;
+}
+
+.gallery-container img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #eee;
+}
+
+.contact-box {
+    background: white;
+    max-width: 600px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #ddd;
+}
+
+.map-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 350px;
+    border: 0;
+    border-radius: 10px;
+}
+
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 22px 10px;
+}
+
+footer a {
+    color: #ffd700;
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 24px;
+    }
+
+    nav a {
+        padding: 10px 9px;
+        font-size: 13px;
+    }
+
+    .hero h2 {
+        font-size: 26px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <h1>शंभू महादेव हॉटेल</h1>
-    <p>तुमचा आवडता नाष्टा ऑर्डर करा:</p>
+<header>
+    <h1>🍽️ Shambhu Mahadev Hotel</h1>
+    <p>चविष्ट जेवण • उत्तम सेवा • आपले स्वागत आहे!</p>
+    <p>📍 Kingaon, Maharashtra</p>
+</header>
 
-    <!-- १. हॉटेलचे मेनू बटणे -->
-    <button class="menu-btn" onclick="giveOrder('नाष्टा पोहे')">🥣 नाष्टा पोहे</button>
-    <button class="menu-btn" onclick="giveOrder('पॅटीस')">🧆 पॅटीस</button>
-    <button class="menu-btn" onclick="giveOrder('वडापाव')">🍔 वडापाव</button>
+<nav>
+    <a href="#home">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+    <a href="#map">Google Map</a>
+</nav>
 
-    <!-- २. ऑर्डर आल्यावर वाजणारा रिंगटोन ऑडिओ टॅग -->
-    <audio id="orderBell" src="https://mixkit.co" preload="auto"></audio>
+<section class="hero" id="home">
+    <h2>स्वागत आहे! 🙏</h2>
+    <p>
+        Shambhu Mahadev Hotel मध्ये तुमचे मनापासून स्वागत आहे.
+        स्वादिष्ट नाश्ता आणि चविष्ट पदार्थांचा आनंद घ्या!
+    </p>
 
-    <!-- ३. फायरबेसचे आवश्यक स्क्रिप्ट्स (Libraries) -->
-    <script src="https://gstatic.com"></script>
-    <script src="https://gstatic.com"></script>
+    <a class="button" href="#menu">🍴 Menu पाहा</a>
 
-    <script>
-      // ४. तुझ्या फायरबेस डेटाबेसचे कॉन्फिगरेशन
-      const firebaseConfig = {
-        databaseURL: "https://firebasedatabase.app"
-      };
-      
-      // फायरबेस सुरू करा
-      firebase.initializeApp(firebaseConfig);
-      const database = firebase.database();
+    <a class="button"
+       href="https://wa.me/917972445072"
+       target="_blank"
+       rel="noopener">
+       WhatsApp संपर्क
+    </a>
+</section>
 
-      // ५. ग्राहकाने बटणावर क्लिक केल्यावर ऑर्डर डेटाबेसमध्ये पाठवणे
-      function giveOrder(menuName) {
-        database.ref('live_order/').set({
-          item: menuName,
-          timestamp: Date.now()
-        });
-        alert("तुमची " + menuName + " ची ऑर्डर मालकाकडे पाठवली आहे!");
-      }
+<section id="menu">
+    <h2>🍽️ आमचा Menu</h2>
 
-      // ६. तुझ्या मोबाईलवर ही वेबसाईट उघडी असेल तर नवीन ऑर्डर येताच रिंग वाजवणे
-      database.ref('live_order/').on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          const bell = document.getElementById("orderBell");
-          bell.play().catch(error => console.log("ऑडिओ प्ले झाला नाही: ", error));
-        }
-      });
-    </script>
+    <div class="menu-container">
+
+        <div class="menu-item">
+            <h3>🥣 पोहे</h3>
+            <p class="price">₹25</p>
+        </div>
+
+        <div class="menu-item">
+            <h3>🍔 वडा पाव</h3>
+            <p class="price">₹20</p>
+        </div>
+
+        <div class="menu-item">
+            <h3>🥔 पॅटिस</h3>
+            <p class="price">₹15</p>
+        </div>
+
+        <div class="menu-item">
+            <h3>🍲 खिचडी</h3>
+            <p class="price">₹30</p>
+        </div>
+
+        <div class="menu-item">
+            <h3>🍛 स्पेशल पावभाजी</h3>
+            <p class="price">₹50</p>
+        </div>
+
+        <div class="menu-item">
+            <h3>🍲 स्पेशल मिसळ पाव</h3>
+            <p class="price">₹50</p>
+        </div>
+
+        <div class="menu-item">
+            <h3>🥘 स्पेशल पुरी भाजी</h3>
+            <p class="price">₹70</p>
+        </div>
+
+    </div>
+</section>
+
+<section id="gallery">
+    <h2>📸 आमची Gallery</h2>
+    <p>तुमच्या हॉटेलचे फोटो येथे दिसतील.</p>
+
+    <div class="gallery-container">
+
+        <img src="hotel.jpg"
+             alt="Shambhu Mahadev Hotel"
+             loading="lazy"
+             onerror="this.style.display='none'">
+
+        <img src="pohe.jpg"
+             alt="पोहे"
+             loading="lazy"
+             onerror="this.style.display='none'">
+
+        <img src="misal.jpg"
+             alt="स्पेशल मिसळ पाव"
+             loading="lazy"
+             onerror="this.style.display='none'">
+
+        <img src="pavbhaji.jpg"
+             alt="स्पेशल पावभाजी"
+             loading="lazy"
+             onerror="this.style.display='none'">
+
+    </div>
+
+    <p style="margin-top:15px">
+        फोटो दिसण्यासाठी त्याच नावाच्या image files
+        GitHub मधील index.html च्या फोल्डरमध्ये अपलोड कर.
+    </p>
+</section>
+
+<section id="contact">
+    <h2>📞 आमच्याशी संपर्क साधा</h2>
+
+    <div class="contact-box">
+        <h3>Shambhu Mahadev Hotel</h3>
+
+        <p>📍 Ahmedpur to Ambajogai Road, Sai Mangale Karyalay, Kingaon</p>
+
+        <p>📱 मोबाईल: 7972445072</p>
+
+        <a class="button" href="tel:+917972445072">
+            📞 आता फोन करा
+        </a>
+
+        <a class="button"
+           href="https://wa.me/917972445072"
+           target="_blank"
+           rel="noopener">
+           WhatsApp
+        </a>
+    </div>
+</section>
+
+<section id="map">
+    <h2>📍 Google Map वर आम्हाला शोधा</h2>
+
+    <div class="map-container">
+        <iframe
+            src="https://maps.google.com/maps?q=Shambhu%20Mahadev%20Hotel%20Kingaon%20Maharashtra&t=&z=14&ie=UTF8&iwloc=&output=embed"
+            loading="lazy"
+            title="Shambhu Mahadev Hotel Google Map"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <a class="button"
+       href="https://www.google.com/maps/search/?api=1&query=Shambhu+Mahadev+Hotel+Kingaon+Maharashtra"
+       target="_blank"
+       rel="noopener">
+       Google Maps मध्ये उघडा
+    </a>
+</section>
+
+<footer>
+    <p>© 2026 Shambhu Mahadev Hotel</p>
+    <p>आपल्या भेटीबद्दल धन्यवाद! 🙏</p>
+</footer>
 
 </body>
 </html>
