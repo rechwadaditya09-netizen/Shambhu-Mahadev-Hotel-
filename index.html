@@ -438,18 +438,6 @@ function giveOrder(menuName) {
       message += "%0Aपत्ता: " + address;
     }
 
-    // तुझ्या जुन्या कोडमधील WhatsApp नंबर
-    const phone = "917972445072";
-
-    const url =
-      "https://wa.me/" + phone +
-      "?text=" + encodeURIComponent(
-        message.replace(/%0A/g, "\n")
-      );
-
-    window.open(url, "_blank");
-  };
-
   // नियमांवर आधारित Smart Food Assistant — API लागत नाही
   window.newAskFoodAssistant = function () {
     const input =
