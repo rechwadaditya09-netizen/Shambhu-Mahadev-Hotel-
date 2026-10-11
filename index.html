@@ -403,11 +403,6 @@ function giveOrder(menuName) {
     newUpdateCart();
   };
 
-  // WhatsApp ऑर्डर
-  window.newSendWhatsAppOrder = function () {
-    let total = 0;
-    const lines = [];
-
     foods.forEach(function (food, index) {
       const quantity = cart[index] || 0;
       if (quantity > 0) {
