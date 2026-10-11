@@ -208,6 +208,309 @@ function giveOrder(menuName) {
   window.open(url, "_blank");
 }
 </script>
+<!-- NEW FEATURES: Shambhu Mahadev Hotel -->
+<style>
+#new-hotel-features {
+  max-width: 900px;
+  margin: 25px auto;
+  padding: 18px;
+  font-family: Arial, sans-serif;
+}
+#new-hotel-features .feature-box {
+  background: #fff8e8;
+  border: 2px solid #d99a24;
+  border-radius: 14px;
+  padding: 16px;
+  margin: 18px 0;
+  color: #38220a;
+}
+#new-hotel-features h2 {
+  margin-bottom: 12px;
+}
+#new-hotel-features button {
+  background: #188747;
+  color: white;
+  border: 0;
+  border-radius: 7px;
+  padding: 10px 14px;
+  margin: 5px;
+  cursor: pointer;
+}
+#new-hotel-features input,
+#new-hotel-features select {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+  max-width: 350px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+}
+#new-hotel-features .food-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #e4d5b7;
+  padding: 10px 0;
+}
+#new-hotel-features .food-row button {
+  padding: 7px 10px;
+}
+#new-hotel-features #cart-total {
+  font-size: 20px;
+  font-weight: bold;
+  color: #b12d16;
+}
+#new-hotel-features #assistant-reply {
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 10px;
+  min-height: 40px;
+}
+</style>
 
+<section id="new-hotel-features">
+
+  <!-- ADD TO CART -->
+  <div class="feature-box">
+    <h2>🛒 तुमची ऑर्डर निवडा</h2>
+    <p>पदार्थ निवडा आणि बिल आपोआप तयार करा.</p>
+
+    <div id="new-food-list"></div>
+
+    <h3>तुमची कार्ट</h3>
+    <div id="new-cart">अजून कोणताही पदार्थ निवडलेला नाही.</div>
+
+    <p id="cart-total">एकूण बिल: ₹0</p>
+
+    <label for="customer-name">तुमचे नाव:</label>
+    <input id="customer-name" type="text" placeholder="तुमचे नाव लिहा">
+
+    <label for="customer-address">पत्ता (ऐच्छिक):</label>
+    <input id="customer-address" type="text" placeholder="डिलिव्हरीचा पत्ता">
+
+    <button onclick="newSendWhatsAppOrder()">📲 WhatsApp वर ऑर्डर करा</button>
+    <button onclick="newClearCart()" style="background:#b52c25">🗑️ कार्ट रिकामी करा</button>
+  </div>
+
+  <!-- SMART FOOD ASSISTANT -->
+  <div class="feature-box">
+    <h2>🤖 Smart Food Assistant</h2>
+    <p>काय खावे याबद्दल मला विचारा!</p>
+
+    <input id="food-question" type="text"
+      placeholder="उदा. स्वस्त नाश्त्यात काय आहे?">
+
+    <button onclick="newAskFoodAssistant()">उत्तर मिळवा</button>
+
+    <div id="assistant-reply">
+      नमस्कार! मी तुम्हाला मेनूमधील पदार्थ निवडायला मदत करतो.
+    </div>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  // पदार्थ आणि किंमती
+  const foods = [
+    { name: "पोहे", price: 25 },
+    { name: "वडापाव", price: 20 },
+    { name: "पॅटीस", price: 15 },
+    { name: "खिचडी", price: 30 },
+    { name: "Special Misal Pav", price: 60 },
+    { name: "Special Puri Bhaji", price: 50 }
+  ];
+
+  const cart = {};
+
+  const foodList = document.getElementById("new-food-list");
+  const cartBox = document.getElementById("new-cart");
+  const totalBox = document.getElementById("cart-total");
+
+  // पदार्थांची यादी तयार करा
+  foods.forEach(function (food, index) {
+    const row = document.createElement("div");
+    row.className = "food-row";
+
+    const label = document.createElement("span");
+    label.textContent = food.name + " — ₹" + food.price;
+
+    const button = document.createElement("button");
+    button.textContent = "+ Add";
+    button.type = "button";
+    button.onclick = function () {
+      cart[index] = (cart[index] || 0) + 1;
+      newUpdateCart();
+    };
+
+    row.appendChild(label);
+    row.appendChild(button);
+    foodList.appendChild(row);
+  });
+
+  // बिल अपडेट करा
+  window.newUpdateCart = function () {
+    cartBox.replaceChildren();
+
+    let total = 0;
+    let hasItems = false;
+
+    foods.forEach(function (food, index) {
+      const quantity = cart[index] || 0;
+      if (!quantity) return;
+
+      hasItems = true;
+      const subtotal = food.price * quantity;
+      total += subtotal;
+
+      const row = document.createElement("div");
+      row.className = "food-row";
+
+      const label = document.createElement("span");
+      label.textContent =
+        food.name + " × " + quantity + " = ₹" + subtotal;
+
+      const remove = document.createElement("button");
+      remove.textContent = "−";
+      remove.style.background = "#b52c25";
+      remove.onclick = function () {
+        cart[index]--;
+        if (cart[index] <= 0) delete cart[index];
+        newUpdateCart();
+      };
+
+      row.appendChild(label);
+      row.appendChild(remove);
+      cartBox.appendChild(row);
+    });
+
+    if (!hasItems) {
+      cartBox.textContent = "अजून कोणताही पदार्थ निवडलेला नाही.";
+    }
+
+    totalBox.textContent = "एकूण बिल: ₹" + total;
+  };
+
+  // कार्ट रिकामी करा
+  window.newClearCart = function () {
+    Object.keys(cart).forEach(function (key) {
+      delete cart[key];
+    });
+    newUpdateCart();
+  };
+
+  // WhatsApp ऑर्डर
+  window.newSendWhatsAppOrder = function () {
+    let total = 0;
+    const lines = [];
+
+    foods.forEach(function (food, index) {
+      const quantity = cart[index] || 0;
+      if (quantity > 0) {
+        const subtotal = food.price * quantity;
+        total += subtotal;
+        lines.push(
+          food.name + " × " + quantity + " = ₹" + subtotal
+        );
+      }
+    });
+
+    if (lines.length === 0) {
+      alert("भाऊ, आधी कार्टमध्ये पदार्थ निवड!");
+      return;
+    }
+
+    const name =
+      document.getElementById("customer-name").value.trim();
+
+    const address =
+      document.getElementById("customer-address").value.trim();
+
+    let message =
+      "नमस्कार Shambhu Mahadev Hotel!%0A";
+
+    message =
+      "नमस्कार Shambhu Mahadev Hotel!%0A" +
+      "नाव: " + (name || "नाव दिलेले नाही") + "%0A%0A" +
+      lines.join("%0A") +
+      "%0A%0Aएकूण बिल: ₹" + total;
+
+    if (address) {
+      message += "%0Aपत्ता: " + address;
+    }
+
+    // तुझ्या जुन्या कोडमधील WhatsApp नंबर
+    const phone = "917972445072";
+
+    const url =
+      "https://wa.me/" + phone +
+      "?text=" + encodeURIComponent(
+        message.replace(/%0A/g, "\n")
+      );
+
+    window.open(url, "_blank");
+  };
+
+  // नियमांवर आधारित Smart Food Assistant — API लागत नाही
+  window.newAskFoodAssistant = function () {
+    const input =
+      document.getElementById("food-question").value
+        .trim().toLowerCase();
+
+    const reply = document.getElementById("assistant-reply");
+
+    if (!input) {
+      reply.textContent = "भाऊ, आधी तुझा प्रश्न लिही!";
+      return;
+    }
+
+    if (
+      input.includes("स्वस्त") ||
+      input.includes("cheap") ||
+      input.includes("कमी पैसे")
+    ) {
+      reply.textContent =
+        "कमी बजेटमध्ये पॅटीस ₹15, वडापाव ₹20 किंवा पोहे ₹25 निवडू शकता.";
+    } else if (
+      input.includes("नाश्ता") ||
+      input.includes("breakfast") ||
+      input.includes("सकाळ")
+    ) {
+      reply.textContent =
+        "नाश्त्यासाठी पोहे ₹25, वडापाव ₹20 किंवा पॅटीस ₹15 उपलब्ध आहेत.";
+    } else if (
+      input.includes("special") ||
+      input.includes("स्पेशल") ||
+      input.includes("मिसळ")
+    ) {
+      reply.textContent =
+        "आमची Special Misal Pav ₹60 आणि Special Puri Bhaji ₹50 आहे.";
+    } else if (
+      input.includes("बिल") ||
+      input.includes("total") ||
+      input.includes("किंमत")
+    ) {
+      reply.textContent =
+        "तुम्ही निवडलेले पदार्थ आणि एकूण बिल कार्टमध्ये दिसेल.";
+    } else if (
+      input.includes("hello") ||
+      input.includes("नमस्कार") ||
+      input.includes("hi")
+    ) {
+      reply.textContent =
+        "नमस्कार! Shambhu Mahadev Hotel मध्ये तुमचे स्वागत आहे. तुम्हाला काय खायचे आहे?";
+    } else {
+      reply.textContent =
+        "तुम्ही पोहे, वडापाव, पॅटीस, खिचडी, Special Misal Pav किंवा Puri Bhaji निवडू शकता. किंमत किंवा नाश्त्याबद्दल विचारा!";
+    }
+  };
+
+  newUpdateCart();
+})();
+</script>
 </body>
 </html>
